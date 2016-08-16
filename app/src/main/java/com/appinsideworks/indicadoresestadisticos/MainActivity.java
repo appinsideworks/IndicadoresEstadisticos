@@ -25,13 +25,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.OvershootInterpolator;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.SlideInLeftAnimator;
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import xyz.danoz.recyclerviewfastscroller.vertical.VerticalRecyclerViewFastScroller;
 
 
@@ -57,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements DataDownloadListe
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
+     *
+     * Some Changes here!!! :D Hello GitHub Plataform! :D
      */
     private GoogleApiClient client;
 
