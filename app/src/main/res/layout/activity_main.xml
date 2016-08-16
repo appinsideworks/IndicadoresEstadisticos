@@ -19,14 +19,6 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
-    <xyz.danoz.recyclerviewfastscroller.vertical.VerticalRecyclerViewFastScroller
-        android:id="@+id/fastScroller"
-        android:layout_width="5dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        ads:rfs_barColor="#FFFFFF"
-        ads:rfs_handleColor="@color/colorPrimaryDark"
-        />
     <!-- view for AdMob Banner Ad -->
     <com.google.android.gms.ads.AdView
         android:id="@+id/adView"
