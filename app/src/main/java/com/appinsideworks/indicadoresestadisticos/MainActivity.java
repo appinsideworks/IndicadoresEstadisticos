@@ -57,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements DataDownloadListe
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      *
      * Some Changes here!!! :D Hello GitHub Plataform! :D
+     *
      */
     private GoogleApiClient client;
 
