@@ -1,6 +1,8 @@
 package com.appinsideworks.indicadoresestadisticos.Controlador.Local;
 
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
@@ -12,23 +14,22 @@ import android.widget.Toast;
 import com.appinsideworks.indicadoresestadisticos.Modelo.Indicador;
 import com.appinsideworks.indicadoresestadisticos.R;
 import com.appinsideworks.indicadoresestadisticos.Vista.AnimationUtils;
+import com.appinsideworks.indicadoresestadisticos.Vista.DetailsActivity;
 
 import java.util.List;
 
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
-/**
- * Created by ramon_a on 8/8/16.
- */
 public class AdapterIndicador extends RecyclerView.Adapter<AdapterIndicador.IndicadorHolder> {
 
 
     private List<Indicador> list;
     private LayoutInflater inflater;
-    private int previusPosition = 0;
+    private Context context;
 
     public AdapterIndicador(List<Indicador> list, Context context) {
         this.list = list;
+        this.context = context;
         this.inflater = LayoutInflater.from(context);
     }
 
@@ -45,6 +46,7 @@ public class AdapterIndicador extends RecyclerView.Adapter<AdapterIndicador.Indi
         Indicador item = list.get(position);
         holder.nombre.setText(item.getNombre());
 
+
     }
 
     @Override
@@ -53,7 +55,7 @@ public class AdapterIndicador extends RecyclerView.Adapter<AdapterIndicador.Indi
     }
 
 
-    class IndicadorHolder extends RecyclerView.ViewHolder {
+    class IndicadorHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         TextView nombre;
         View container;
@@ -62,6 +64,17 @@ public class AdapterIndicador extends RecyclerView.Adapter<AdapterIndicador.Indi
             super(itemView);
             nombre = (TextView) itemView.findViewById(R.id.lbl_indicador);
             container = (View) itemView.findViewById(R.id.cont_item_root);
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Indicador indicador = list.get(getAdapterPosition());
+            Intent intent = new Intent(context, DetailsActivity.class);
+            context.startActivity(intent);
+
         }
     }
+
 }

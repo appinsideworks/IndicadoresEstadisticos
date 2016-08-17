@@ -89,6 +89,7 @@ public class MainFragment extends Fragment implements DataDownloadListener, View
 
         //Publicidad
         adView = (AdView) activity.findViewById(R.id.adView);
+        adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
 
         //Fin
@@ -97,7 +98,6 @@ public class MainFragment extends Fragment implements DataDownloadListener, View
         daoIndicador = new DAOIndicador(activity.getApplicationContext());
         daoIndicador.setDataDownloadListener(this);
         daoIndicador.obtenerIndicadores();
-        adRequest = new AdRequest.Builder().build();
         //Fin
     }
 
