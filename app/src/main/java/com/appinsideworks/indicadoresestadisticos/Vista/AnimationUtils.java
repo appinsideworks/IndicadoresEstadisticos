@@ -17,5 +17,6 @@ public class AnimationUtils {
         animateY.setDuration(700);
         animatorSet.playTogether(animateY);
         animatorSet.start();
+
     }
 }
