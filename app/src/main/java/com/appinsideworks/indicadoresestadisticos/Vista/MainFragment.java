@@ -6,12 +6,10 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -38,7 +36,6 @@ public class MainFragment extends Fragment implements DataDownloadListener {
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
     private AdView adView;
-    private ProgressDialog dialog;
 
     private AdapterIndicador adapter;
     private AdRequest adRequest;
@@ -79,7 +76,6 @@ public class MainFragment extends Fragment implements DataDownloadListener {
 
         misc = new Misc();
         misc.setContext(getActivity());
-        dialog = new ProgressDialog(activity);
 
         FM = getFragmentManager();
         FT = FM.beginTransaction();
@@ -94,8 +90,7 @@ public class MainFragment extends Fragment implements DataDownloadListener {
         daoIndicador.obtenerIndicadores();
         adRequest = new AdRequest.Builder().build();
 
-        dialog.setMessage("Descargando información.");
-        dialog.show();
+
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -125,7 +120,6 @@ public class MainFragment extends Fragment implements DataDownloadListener {
         adapter = new AdapterIndicador(list, getActivity());
         recyclerView.setAdapter(adapter);
         swipeContainer.setRefreshing(false);
-        dialog.dismiss();
         adView.loadAd(adRequest);
 
     }

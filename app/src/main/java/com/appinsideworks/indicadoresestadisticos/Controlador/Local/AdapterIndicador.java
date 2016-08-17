@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.appinsideworks.indicadoresestadisticos.Modelo.Indicador;
 import com.appinsideworks.indicadoresestadisticos.R;
+import com.appinsideworks.indicadoresestadisticos.Vista.AnimationUtils;
 
 import java.util.List;
 
@@ -21,6 +22,7 @@ public class AdapterIndicador extends RecyclerView.Adapter<AdapterIndicador.Indi
 
     private List<Indicador> list;
     private LayoutInflater inflater;
+    private int previusPosition = 0;
 
     public AdapterIndicador(List<Indicador> list, Context context) {
         this.list = list;
@@ -39,6 +41,19 @@ public class AdapterIndicador extends RecyclerView.Adapter<AdapterIndicador.Indi
 
         Indicador item = list.get(position);
         holder.nombre.setText(item.getNombre());
+
+        if (position > previusPosition) {
+            AnimationUtils.animate(holder, true);
+
+        } else if (position < previusPosition) {
+            AnimationUtils.animate(holder, false);
+
+        } else {
+            AnimationUtils.animate(holder, true);
+
+        }
+        previusPosition = position;
+
     }
 
     @Override
@@ -53,8 +68,8 @@ public class AdapterIndicador extends RecyclerView.Adapter<AdapterIndicador.Indi
 
         public IndicadorHolder(View itemView) {
             super(itemView);
-            nombre = (TextView)itemView.findViewById(R.id.lbl_indicador);
-            container = (View)itemView.findViewById(R.id.cont_item_root);
+            nombre = (TextView) itemView.findViewById(R.id.lbl_indicador);
+            container = (View) itemView.findViewById(R.id.cont_item_root);
         }
     }
 }
