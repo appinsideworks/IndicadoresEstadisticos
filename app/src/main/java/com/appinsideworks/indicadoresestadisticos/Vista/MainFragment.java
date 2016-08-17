@@ -6,12 +6,10 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -31,14 +29,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainFragment extends Fragment implements DataDownloadListener {
+public class MainFragment extends Fragment implements DataDownloadListener, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
 
     private LinearLayoutManager manager;
     private SwipeRefreshLayout swipeContainer;
     private RecyclerView recyclerView;
     private FloatingActionButton fab;
     private AdView adView;
-    private ProgressDialog dialog;
 
     private AdapterIndicador adapter;
     private AdRequest adRequest;
@@ -49,7 +46,7 @@ public class MainFragment extends Fragment implements DataDownloadListener {
     private FragmentTransaction FT;
 
     public MainFragment() {
-        // Required empty public constructor
+
     }
 
     @Override
@@ -64,22 +61,10 @@ public class MainFragment extends Fragment implements DataDownloadListener {
         super.onViewCreated(view, savedInstanceState);
         final Activity activity = getActivity();
 
-        //Inicialización de elementos
-
-        swipeContainer = (SwipeRefreshLayout) activity.findViewById(R.id.swipeContainer);
-        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light,
-                android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
-        recyclerView = (RecyclerView) activity.findViewById(R.id.rc_view);
-        fab = (FloatingActionButton) activity.findViewById(R.id.fab);
-        adView = (AdView) activity.findViewById(R.id.adView);
-
         //Inicialización de variables
 
         misc = new Misc();
         misc.setContext(getActivity());
-        dialog = new ProgressDialog(activity);
 
         FM = getFragmentManager();
         FT = FM.beginTransaction();
@@ -87,46 +72,71 @@ public class MainFragment extends Fragment implements DataDownloadListener {
 
         //Fin
 
+        //Inicialización de elementos
+
+        swipeContainer = (SwipeRefreshLayout) activity.findViewById(R.id.swipeContainer);
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+        swipeContainer.setOnRefreshListener(this);
+
+        recyclerView = (RecyclerView) activity.findViewById(R.id.rc_view);
         recyclerView.setLayoutManager(manager);
 
+        fab = (FloatingActionButton) activity.findViewById(R.id.fab);
+        fab.setOnClickListener(this);
+
+        //Publicidad
+        adView = (AdView) activity.findViewById(R.id.adView);
+        adView.loadAd(adRequest);
+
+        //Fin
+
+        //Funcionalidad
         daoIndicador = new DAOIndicador(activity.getApplicationContext());
         daoIndicador.setDataDownloadListener(this);
         daoIndicador.obtenerIndicadores();
         adRequest = new AdRequest.Builder().build();
-
-        dialog.setMessage("Descargando información.");
-        dialog.show();
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if (!misc.comprobarConectividad()) {
-                    Snackbar.make(getActivity().findViewById(R.id.mainView), "Verifica tu conexión a internet", Snackbar.LENGTH_LONG)
-                            .setAction("Action", null).show();
-                    if (swipeContainer.isRefreshing())
-                        swipeContainer.setRefreshing(false);
-
-                    FT.remove(FM.findFragmentByTag("Main"));
-                    FT.add(R.id.mainView, new ConexionFail(), "Failed");
-                    FT.commit();
-                } else {
-                    List<Indicador> lista_vacia = new ArrayList<Indicador>();
-                    recyclerView.setAdapter(new AdapterIndicador(lista_vacia, activity.getApplicationContext()));
-                    daoIndicador.obtenerIndicadores();
-                }
-            }
-        });
-
-
+        //Fin
     }
 
+
+    //Clic de los elementos
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.rc_view:
+                break;
+
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        if (!misc.comprobarConectividad()) {
+            Snackbar.make(getActivity().findViewById(R.id.mainView), "Verifica tu conexión a internet", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
+            if (swipeContainer.isRefreshing())
+                swipeContainer.setRefreshing(false);
+
+            FT.remove(FM.findFragmentByTag("Main"));
+            FT.add(R.id.mainView, new ConexionFail(), "Failed");
+            FT.commit();
+        } else {
+            List<Indicador> lista_vacia = new ArrayList<Indicador>();
+            recyclerView.setAdapter(new AdapterIndicador(lista_vacia, getActivity().getApplicationContext()));
+            daoIndicador.obtenerIndicadores();
+        }
+    }
+
+    //Interfaces, implementaciones
     @Override
     public void dataDownloadedSuccessfully(Object data) {
         List<Indicador> list = (List<Indicador>) data;
         adapter = new AdapterIndicador(list, getActivity());
         recyclerView.setAdapter(adapter);
         swipeContainer.setRefreshing(false);
-        dialog.dismiss();
-        adView.loadAd(adRequest);
 
     }
 

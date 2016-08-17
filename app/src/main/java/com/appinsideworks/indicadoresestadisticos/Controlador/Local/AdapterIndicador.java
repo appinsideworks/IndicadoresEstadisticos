@@ -7,12 +7,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.appinsideworks.indicadoresestadisticos.Modelo.Indicador;
 import com.appinsideworks.indicadoresestadisticos.R;
 import com.appinsideworks.indicadoresestadisticos.Vista.AnimationUtils;
 
 import java.util.List;
+
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 /**
  * Created by ramon_a on 8/8/16.
@@ -42,24 +45,13 @@ public class AdapterIndicador extends RecyclerView.Adapter<AdapterIndicador.Indi
         Indicador item = list.get(position);
         holder.nombre.setText(item.getNombre());
 
-        if (position > previusPosition) {
-            AnimationUtils.animate(holder, true);
-
-        } else if (position < previusPosition) {
-            AnimationUtils.animate(holder, false);
-
-        } else {
-            AnimationUtils.animate(holder, true);
-
-        }
-        previusPosition = position;
-
     }
 
     @Override
     public int getItemCount() {
         return list.size();
     }
+
 
     class IndicadorHolder extends RecyclerView.ViewHolder {
 
