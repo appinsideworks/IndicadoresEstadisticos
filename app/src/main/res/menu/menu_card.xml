@@ -3,12 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/action_card_addFavorites"
-        app:showAsAction="never"
         android:orderInCategory="100"
-        android:title="Favoritos" />
+        android:title="Favoritos"
+        app:showAsAction="never" />
     <item
         android:id="@+id/action_card_compartir"
-        app:showAsAction="never"
         android:orderInCategory="200"
-        android:title="Compartir" />
+        android:title="Compartir"
+        app:showAsAction="never" />
 </menu>
