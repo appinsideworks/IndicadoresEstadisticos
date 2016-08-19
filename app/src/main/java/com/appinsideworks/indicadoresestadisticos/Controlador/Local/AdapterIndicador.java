@@ -3,6 +3,7 @@ package com.appinsideworks.indicadoresestadisticos.Controlador.Local;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,15 +52,17 @@ public class AdapterIndicador extends RecyclerView.Adapter<AdapterIndicador.Indi
 
 
     class IndicadorHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-        TextView nombre;
         View container;
+        TextView nombre;
+        Toolbar toolbar;
 
         public IndicadorHolder(View itemView) {
             super(itemView);
-            nombre = (TextView) itemView.findViewById(R.id.lbl_indicador);
             container = (View) itemView.findViewById(R.id.cont_item_root);
+            nombre = (TextView) itemView.findViewById(R.id.lbl_indicador);
+            toolbar = (Toolbar) itemView.findViewById(R.id.cardToolbar);
 
+            toolbar.inflateMenu(R.menu.menu_card);
             itemView.setOnClickListener(this);
         }
 
@@ -67,6 +70,7 @@ public class AdapterIndicador extends RecyclerView.Adapter<AdapterIndicador.Indi
         public void onClick(View view) {
             Indicador indicador = list.get(getAdapterPosition());
             Intent intent = new Intent(context, DetailsActivity.class);
+            intent.putExtra("Titulo", indicador.getNombre());
             context.startActivity(intent);
 
         }
