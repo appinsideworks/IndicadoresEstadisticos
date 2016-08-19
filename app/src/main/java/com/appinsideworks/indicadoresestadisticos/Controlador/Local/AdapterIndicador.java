@@ -2,23 +2,18 @@ package com.appinsideworks.indicadoresestadisticos.Controlador.Local;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.RecyclerView.ViewHolder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.appinsideworks.indicadoresestadisticos.Modelo.Indicador;
 import com.appinsideworks.indicadoresestadisticos.R;
-import com.appinsideworks.indicadoresestadisticos.Vista.AnimationUtils;
 import com.appinsideworks.indicadoresestadisticos.Vista.DetailsActivity;
 
 import java.util.List;
 
-import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 
 public class AdapterIndicador extends RecyclerView.Adapter<AdapterIndicador.IndicadorHolder> {
 
