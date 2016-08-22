@@ -70,7 +70,7 @@ public class AdapterIndicador extends RecyclerView.Adapter<AdapterIndicador.Indi
         public void onClick(View view) {
             Indicador indicador = list.get(getAdapterPosition());
             Intent intent = new Intent(context, DetailsActivity.class);
-            intent.putExtra("Titulo", indicador.getNombre());
+            intent.putExtra("Indicador", indicador);
             context.startActivity(intent);
 
         }

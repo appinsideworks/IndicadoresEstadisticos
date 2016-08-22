@@ -1,6 +1,7 @@
 package com.appinsideworks.indicadoresestadisticos.Vista;
 
 
+
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;

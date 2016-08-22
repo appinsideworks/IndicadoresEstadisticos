@@ -1,11 +1,11 @@
 package com.appinsideworks.indicadoresestadisticos.Vista;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
 
+import com.appinsideworks.indicadoresestadisticos.Modelo.Indicador;
 import com.appinsideworks.indicadoresestadisticos.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -28,9 +28,8 @@ public class DetailsActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.cardToolbar);
         toolbar.inflateMenu(R.menu.menu_details);
 
-        Intent intent = getIntent();
-        String titulo = intent.getStringExtra("Titulo");
-        headTitle.setText(titulo);
+        Indicador indicador = getIntent().getParcelableExtra("Indicador");
+        headTitle.setText(indicador.getNombre());
 
         adView = (AdView) findViewById(R.id.adViewDetails);
         adRequest = new AdRequest.Builder().addTestDevice("18F7A617925794A546F8AE71D6C1DF11").build();
