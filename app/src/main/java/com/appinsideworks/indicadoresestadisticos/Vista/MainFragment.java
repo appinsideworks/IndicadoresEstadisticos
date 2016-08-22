@@ -76,6 +76,7 @@ public class MainFragment extends Fragment implements DataDownloadListener, View
 
         //Inicialización de elementos
 
+
         swipeContainer = (SwipeRefreshLayout) activity.findViewById(R.id.swipeContainer);
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
@@ -132,7 +133,7 @@ public class MainFragment extends Fragment implements DataDownloadListener, View
         }
     }
 
-    //Interfaces, implementaciones
+    //Interfaces e implementaciones
     @Override
     public void dataDownloadedSuccessfully(Object data) {
         List<Indicador> list = (List<Indicador>) data;
