@@ -4,7 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.appinsideworks.indicadoresestadisticos.Controlador.Local.ParserIndicadores;
+import com.appinsideworks.indicadoresestadisticos.Controlador.Web.DAOIndicador;
 import com.appinsideworks.indicadoresestadisticos.Controlador.Web.DataDownloadListener;
 import com.appinsideworks.indicadoresestadisticos.Modelo.Indicador;
 import com.appinsideworks.indicadoresestadisticos.R;
@@ -36,11 +39,18 @@ public class DetailsActivity extends AppCompatActivity implements DataDownloadLi
         adRequest = new AdRequest.Builder().addTestDevice("18F7A617925794A546F8AE71D6C1DF11").build();
         adView.loadAd(adRequest);
 
+        DAOIndicador dao = new DAOIndicador(this);
+        dao.setDataDownloadListener(this);
+        dao.obtenerIndicador(indicador.getIndicador());
+
     }
 
     @Override
     public void dataDownloadedSuccessfully(Object data) {
 
+        ParserIndicadores parserIndicadores = new ParserIndicadores();
+
+        System.out.println(parserIndicadores.JsonToSeries(data));
     }
 
     @Override

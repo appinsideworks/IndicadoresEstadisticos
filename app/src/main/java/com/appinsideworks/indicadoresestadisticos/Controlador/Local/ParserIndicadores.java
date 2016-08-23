@@ -1,6 +1,7 @@
 package com.appinsideworks.indicadoresestadisticos.Controlador.Local;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.widget.Toast;
 
 import com.appinsideworks.indicadoresestadisticos.Modelo.Indicador;
@@ -11,6 +12,8 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.concurrent.TransferQueue;
 
 /**
  * Created by ramon_a on 8/8/16.
@@ -42,5 +45,26 @@ public class ParserIndicadores {
             Toast.makeText(context, "Error al cargar la información", Toast.LENGTH_SHORT).show();
             return new ArrayList<Indicador>();
         }
+    }
+
+    public String JsonToSeries(Object object) {
+        JSONArray result = new JSONArray();
+
+        try {
+            JSONObject jsonObject = new JSONObject((String) object);
+            JSONObject data = jsonObject.getJSONObject("Data");
+            JSONArray series = data.getJSONArray("Serie");
+
+            for (int i = series.length() - 18; i < series.length(); i++) {
+                JSONArray temp = new JSONArray();
+                temp.put(series.getJSONObject(i).getString("TimePeriod").replace("/","-"));
+                temp.put(series.getJSONObject(i).getDouble("CurrentValue"));
+                result.put(temp);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return result.toString();
     }
 }
